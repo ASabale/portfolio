@@ -9,7 +9,7 @@ const person = {
   role: "Software Engineer",
   avatar: "/images/avatar.jpg",
   location: "America/Chicago", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Marathi", "Hindi"], // optional: Leave the array empty if you don't want to display languages
+  languages: [ ], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter = {
@@ -60,7 +60,7 @@ const home = {
 const about = {
   label: "About",
   title: "About me",
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  description: `Meet ${person.name}, ${person.role} from Texas, USA`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -69,7 +69,7 @@ const about = {
     display: true,
   },
   calendar: {
-    display: true,
+    display: false,
     link: "https://cal.com",
   },
   intro: {
@@ -226,7 +226,7 @@ const gallery = {
       orientation: "horizontal", // vertical | horizontal
     },
     {
-      src: "/images/gallery/Virginia_tech_2.jpg",
+      src: "/images/gallery/UTA-1.jpg",
       alt: "image",
       orientation: "horizontal",
     },
