@@ -253,7 +253,7 @@ const gallery = {
     {
       src: "/images/gallery/TA-of-the-month.jpg",
       alt: "image",
-      orientation: "vertical",
+      orientation: "horizontal",
     },
     ],
 };
