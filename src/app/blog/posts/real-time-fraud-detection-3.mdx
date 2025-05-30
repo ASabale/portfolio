@@ -1,0 +1,112 @@
+---
+title: "Decoding Fraud: My Exploratory Data Analysis Journey"
+publishedAt: "2025-05-30"
+image: "/images/gallery/blog-fraud-lakehouse-2.png"
+summary: "A detailed walkthrough of EDA and feature engineering decisions on the BAF fraud dataset. Includes missing value handling, transformation choices, class imbalance strategies, and model-ready pipeline tips."
+tag: "Project Progress"
+---
+
+> *“Every great model starts with a great look at the data.”*
+
+Exploratory Data Analysis (EDA) is where intuition is built, pitfalls are exposed, and the roadmap for feature engineering is drafted. In this post I’ll walk through the EDA I conducted on the **Bank‑Account Fraud (BAF)** dataset (~1M rows × 32 features) and highlight the decisions that shaped my downstream modeling pipeline. You’ll find all the code, charts, and full step-by-step details in the [notebook and README](./README.md) in my portfolio.
+
+---
+
+## Dataset at a Glance
+- **Source:** [Bank Account Fraud (BAF) Dataset on GitHub](https://github.com/feedzai/bank-account-fraud)
+- **Target:** `fraud_bool` ‑ only ~1% positives → **severe imbalance**
+- **Feature mix:** 20 numeric, 8 categorical, 4 binary flags
+- **Issues spotted early:** constant columns, negative placeholders, heavy skew
+
+A simple `.nunique()` pass and a pie chart of the target quickly confirmed where cleansing and balancing efforts would be needed.
+
+---
+
+## Hunting Class Imbalance
+
+Visualising the fraud/non‑fraud split made the class skew visceral—an essential nudge to plan for **Tomek Links + SMOTE‑Tomek** later on. The plot also acts as a baseline to judge recall improvements once resampling is applied.
+
+---
+
+## Missing‑Value Sleuthing
+
+Negative numbers (‑1, ‑16, etc.) weren’t outliers; they were **missing codes**. I:
+
+1. Calculated **% missing per column** and ranked features.
+2. Plotted *three* histograms per key numeric feature:
+- all rows
+- rows **excluding** missing codes
+- the **missing rows themselves**
+3. Noticed that “missingness” was **informative**—fraud rates spiked in those rows.
+
+**Action:** keep the rows, add a `*_missing` indicator, and median‑impute the value. This preserves signal without leaking information.
+
+---
+
+## Taming Skew with Yeo‑Johnson
+
+Eight highly skewed features distorted correlations and tree splits. After benchmarking **Log**, **Box‑Cox**, and **Yeo‑Johnson**, the latter offered the cleanest post‑transform shapes **without the strict positivity requirement**. The transformer is serialized as `yeojohnson_transformer.pkl` for real‑time scoring consistency.
+
+---
+
+## Correlation Check‑ups
+
+I captured correlation heatmaps **before** and **after** the missing‑data fixes plus Yeo‑Johnson. The post‑fix version revealed clearer clusters and suppressed spurious relationships—evidence that the preprocessing choices were on point.
+
+---
+
+## One‑Hot Encoding Categorical Signals
+
+Five categorical fields (`payment_type`, `employment_status`, etc.) became a tidy one‑hot matrix. The column ordering is frozen in `ohe_columns.pkl`, ensuring Spark streaming jobs can reuse the exact mapping.
+
+---
+
+## Sampling Tactics for the Minority Class
+
+I prototyped and timed four imbalance remedies—Tomek Links, Cluster Centroids, NearMiss‑1, and Edited Nearest Neighbours—settling on **Tomek Links** for noise cleanup and reserving **SMOTE‑Tomek** for the upcoming model experiments.
+
+---
+
+## Feature Importance Sneak Peek
+
+A quick XGBoost run (post‑Tomek) showed that:
+
+- Several **missing‑value indicators** cracked the top‑20 features.
+- Temporal attributes such as `month` and `days_since_request` carried weight.
+
+This validated the earlier hypothesis: *missingness is predictive*.
+
+---
+
+## Key Takeaways
+
+| Insight                        | Impact                                   |
+|--------------------------------|------------------------------------------|
+| Missing codes encode risk      | Keep them, add indicators                |
+| Yeo‑Johnson beats Log/Box‑Cox  | Stabilizes variance w/o positivity constraint |
+| Simple cleansing + Tomek Links | Lifts minority‑class recall with minimal info loss |
+| Saving artifacts (transformer, OHE) | Seamless hand‑off: offline → streaming |
+
+---
+
+## What’s Next?
+
+- **SMOTE‑Tomek** + hyper‑tuned XGBoost/LightGBM
+- Trials with **TabNet** and **FT‑Transformer** on the scaled numeric matrix
+- Deployment: Spark Structured Streaming consumer that loads the saved transformers, scores each event, and writes enriched data back to **Apache Iceberg**
+
+---
+
+## Gratitude
+
+- **Kaggle Inspiration:** Huge thanks to [this Kaggle notebook](https://www.kaggle.com/code/matthewmcnulty/bank-account-fraud#1.-Exploratory-Data-Analysis-of-Bank-Account-Applications) for EDA direction.
+- **Book Reference:** *Feature Engineering for Machine Learning* by Alice Zheng & Amanda Casari guided many of my decisions—cannot recommend it enough!
+
+---
+
+## Explore More
+
+For full code, figures, and reproducible steps, check the [notebook](https://github.com/ASabale/Project-X/blob/main/EDA/Exploratory%20Data%20Analysis.ipynb) and [README](https://github.com/ASabale/Project-X/blob/main/EDA/README.md) in this repo.
+
+*Thanks for reading! If you have thoughts or want to collaborate on fraud‑detection pipelines, let’s connect.*
+
