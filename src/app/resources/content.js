@@ -233,7 +233,7 @@ const gallery = {
     {
       src: "/images/gallery/UTA-2.jpg",
       alt: "image",
-      orientation: "horizontal",
+      orientation: "vertical",
     },
     {
       src: "/images/gallery/grad-1.jpg",
@@ -243,9 +243,19 @@ const gallery = {
     {
       src: "/images/gallery/grad-2.jpg",
       alt: "image",
+      orientation: "vertical",
+    },
+    {
+      src: "/images/gallery/grad-2.jpg",
+      alt: "image",
+      orientation: "vertical",
+    },
+    {
+      src: "/images/gallery/TA-of-the-month.jpg",
+      alt: "image",
       orientation: "horizontal",
     },
-  ],
+    ],
 };
 
 export { person, social, newsletter, home, about, blog, work, gallery };
