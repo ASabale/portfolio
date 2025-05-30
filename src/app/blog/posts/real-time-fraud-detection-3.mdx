@@ -8,7 +8,7 @@ tag: "Project Progress"
 
 > *“Every great model starts with a great look at the data.”*
 
-Exploratory Data Analysis (EDA) is where intuition is built, pitfalls are exposed, and the roadmap for feature engineering is drafted. In this post I’ll walk through the EDA I conducted on the **Bank‑Account Fraud (BAF)** dataset (~1M rows × 32 features) and highlight the decisions that shaped my downstream modeling pipeline. You’ll find all the code, charts, and full step-by-step details in the [notebook and README](./README.md) in my portfolio.
+Exploratory Data Analysis (EDA) is where intuition is built, pitfalls are exposed, and the roadmap for feature engineering is drafted. In this post I’ll walk through the EDA I conducted on the **Bank‑Account Fraud (BAF)** dataset (~1M rows × 32 features) and highlight the decisions that shaped my downstream modeling pipeline. You’ll find all the code, charts, and full step-by-step details in the [notebook and README](https://github.com/ASabale/Project-X/tree/main/EDA) in my portfolio.
 
 ---
 
@@ -80,12 +80,10 @@ This validated the earlier hypothesis: *missingness is predictive*.
 
 ## Key Takeaways
 
-| Insight                        | Impact                                   |
-|--------------------------------|------------------------------------------|
-| Missing codes encode risk      | Keep them, add indicators                |
-| Yeo‑Johnson beats Log/Box‑Cox  | Stabilizes variance w/o positivity constraint |
-| Simple cleansing + Tomek Links | Lifts minority‑class recall with minimal info loss |
-| Saving artifacts (transformer, OHE) | Seamless hand‑off: offline → streaming |
+- Missing value codes often encode risk; keep them and add indicator columns.
+- Yeo-Johnson transformation can outperform log or Box-Cox by stabilizing variance without requiring strictly positive values.
+- Simple cleansing plus Tomek Links increases recall for the minority class with minimal information loss.
+- Saving your transformer and one-hot encoder artifacts ensures a seamless hand-off from offline training to real-time streaming inference.
 
 ---
 
