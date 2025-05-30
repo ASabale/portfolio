@@ -246,11 +246,6 @@ const gallery = {
       orientation: "vertical",
     },
     {
-      src: "/images/gallery/grad-2.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
       src: "/images/gallery/TA-of-the-month.jpg",
       alt: "image",
       orientation: "horizontal",
