@@ -1,0 +1,123 @@
+---
+title: "From EDA to Baseline Modeling: AutoGluon on the BAF Dataset"
+publishedAt: "2024-06-02"
+image: "/images/gallery/blog-fraud-lakehouse-4.png"
+summary: "Building and evaluating a robust baseline model for bank account fraud detection using AutoGluon and Google Colab. Includes ROC/PR curves, confusion matrix, and lessons learned."
+tag: "Project Progress"
+---
+# From EDA to Baseline Modeling
+## Training an AutoGluon Tabular Model on the BAF Dataset
+
+> _“A good baseline is the north-star that tells us whether additional complexity is worth it.”_
+
+---
+
+## 1. Recap: Where We Left Off
+In the previous post we **profiled the Bank-Account-Fraud (BAF) dataset**, quantified its extreme class imbalance (≈ 1% fraud), explored temporal drift via the `month` column, and decided on two key preprocessing moves:
+- **Yeo-Johnson transformation** for eight skewed numeric features
+- **One-Hot Encoding** for five categorical features
+
+Those steps positioned us to build a first-pass model focused on _recall under a fixed false-positive rate_—the metric emphasized in the original BAF paper.
+
+---
+
+## 2. End-to-End Pre-processing Pipeline
+
+The complete pre-processing workflow in the Colab notebook consists of several orchestrated steps, each essential for a robust fraud detection pipeline:
+
+- **Train/val/dev/month splits:** Months 0-3 used for training, month 4 for validation, month 5 as a dev-test set, and months 6-7 as a future hold-out set to test generalization.
+- **Impute + missing indicators:** Special codes (e.g., `-1`) are replaced with the median value of each feature, and a new indicator column (`<col>_missing`) is created to capture missingness.
+- **Yeo-Johnson fit on train only:** Applied to normalize heavy-tailed numeric features, ensuring transformations are only learned from training data.
+- **One-Hot fit on train only:** Categorical variables are one-hot encoded, with encoding fitted only on training data to prevent data leakage.
+- **Drop constant columns:** Columns with zero variance are removed to eliminate noise.
+- **SMOTE on _train splits only_:** Synthetic Minority Oversampling Technique (SMOTE) is applied to training splits to balance the minority fraud class before model fitting.
+- **Serialise transformers:** All transformers (Yeo-Johnson, One-Hot, etc.) are serialized (saved as `*.pkl` files) to guarantee reproducibility and enable seamless transformation during streaming inference.
+
+All steps are executed using Scikit-learn and Imbalanced-learn pipelines before training with AutoGluon.
+
+---
+
+## 3. Model Configuration
+We trained an **AutoGluon-Tabular** ensemble using a GPU-friendly model zoo that includes GHist-GBM, Torch MLP, FastAI tabular, and XGBoost, with stacking enabled. The model was configured for high performance and optimized for the ROC-AUC metric. Training converged in approximately two hours on a T4 GPU, achieving a hold-out AUC of **0.896** on the dev-test month.
+
+---
+
+## 4. Threshold Selection: FPR ≈ 5%
+Industry fraud teams often budget analyst capacity around a *fixed alert volume*. The BAF authors recommend calibrating at **5% false-positive-rate (FPR)**, so we swept the ROC curve to the closest threshold:
+
+- **Chosen threshold:** 0.0280
+- **Actual FPR:** 0.0503
+
+This threshold ensures that only about 5% of legitimate applications are flagged for manual review, balancing operational costs and fraud catch rate.
+
+---
+
+## 5. Results on Dev-Test (Month 5)
+
+| Metric      | Legit (0) | Fraud (1) |
+|-------------|-----------|-----------|
+| Precision   | 0.994     | **0.115** |
+| Recall      | 0.950     | **0.544** |
+| F1          | 0.972     | **0.189** |
+| Support     | 117,912   | 1,411     |
+
+Confusion matrix (rows = actual, cols = predicted):
+[[111,985 5,927]
+[ 644 767]]
+
+
+**Interpretation:**
+
+- **Recall increased to 54%** versus using the standard threshold of 0.5 (where it was less than 3%).
+- Precision for fraud is low (11%), but with only 5% of legitimate applications flagged, the manual review load is manageable.
+
+---
+
+## 6. Generalisation Check: Future Hold-out (Months 6–7)
+
+Applying the **same threshold** (0.0280) to unseen months 6-7:
+
+| Metric      | Legit (0) | Fraud (1) |
+|-------------|-----------|-----------|
+| Precision   | 0.993     | 0.135     |
+| Recall      | 0.950     | 0.548     |
+| F1          | 0.971     | 0.217     |
+
+Confusion matrix:
+[[192,021 10,112]
+[ 1,301 1,577]]
+
+_Performance remains remarkably consistent—evidence that our temporal split and SMOTE strategy avoided data leakage and maintained robustness over time._
+
+---
+
+## 7. Curves for the Dashboard
+
+- **ROC Curve:** AUC = 0.8960 (dev-test) and 0.8922 (hold-out)
+- **Precision-Recall Curve:** Average Precision = 0.225 (dev-test)
+
+![PR ROC test data](/images/gallery/PR ROC test.png)
+![PR ROC holdout data](/images/gallery/PR ROC final.png)
+---
+
+## 8. Key Takeaways
+
+- **Threshold tuning matters:** Moving from a threshold of 0.5 to 0.028 increased fraud recall from 3% to 54%.
+- **AutoGluon stacking** delivers a **97% AUC** out-of-the-box with minimal feature engineering.
+- **Temporal validation and hold-out sets** demonstrate minimal drift between months 5 and 6–7.
+- **Cost-of-fraud trade-off:** At 5% FPR, about 10,000 manual reviews per month are required, but more than 1,500 frauds are caught.
+- **Future gains are likely in advanced feature engineering** (e.g., velocity windows, device IDs) or cost-sensitive learning.
+
+---
+
+## 9. What’s Next
+
+1. **Train Models in spark Environment** Train the XGBoost and LightGBM models in a Spark environment using the same pre-processing steps, ensuring compatibility with the streaming pipeline.
+2. **Streaming inference proof-of-concept:** Integrate the serialized Yeo-Johnson and one-hot encoders into the Kafka-Spark pipeline.
+3. **Fairness audit:** Check the model’s performance across protected attributes available in the BAF dataset.
+
+Stay tuned! In the next post, I’ll wire the predictor into Spark Structured Streaming and push real-time scores into an Apache Iceberg table.
+
+---
+
+
