@@ -54,15 +54,15 @@ This threshold ensures that only about 5% of legitimate applications are flagged
 
 ## 5. Results on Dev-Test (Month 5)
 
-| Metric      | Legit (0) | Fraud (1) |
-|-------------|-----------|-----------|
-| Precision   | 0.994     | **0.115** |
-| Recall      | 0.950     | **0.544** |
-| F1          | 0.972     | **0.189** |
-| Support     | 117,912   | 1,411     |
+| Metric      | Legit (0) | Fraud (1) |<br />
+|-------------|-----------|-----------|<br />
+| Precision   | 0.994     | **0.115** |<br />
+| Recall      | 0.950     | **0.544** |<br />
+| F1          | 0.972     | **0.189** |<br />
+| Support     | 117,912   | 1,411     |<br />
 
 Confusion matrix (rows = actual, cols = predicted):
-[[111,985 5,927]
+[[111,985 5,927]<br />
 [ 644 767]]
 
 
@@ -77,14 +77,14 @@ Confusion matrix (rows = actual, cols = predicted):
 
 Applying the **same threshold** (0.0280) to unseen months 6-7:
 
-| Metric      | Legit (0) | Fraud (1) |
-|-------------|-----------|-----------|
-| Precision   | 0.993     | 0.135     |
-| Recall      | 0.950     | 0.548     |
-| F1          | 0.971     | 0.217     |
+| Metric      | Legit (0) | Fraud (1) |<br />
+|-------------|-----------|-----------|<br />
+| Precision   | 0.993     | 0.135     |<br />
+| Recall      | 0.950     | 0.548     |<br />
+| F1          | 0.971     | 0.217     |<br />
 
 Confusion matrix:
-[[192,021 10,112]
+[[192,021 10,112]<br />
 [ 1,301 1,577]]
 
 _Performance remains remarkably consistent—evidence that our temporal split and SMOTE strategy avoided data leakage and maintained robustness over time._
@@ -96,8 +96,6 @@ _Performance remains remarkably consistent—evidence that our temporal split an
 - **ROC Curve:** AUC = 0.8960 (dev-test) and 0.8922 (hold-out)
 - **Precision-Recall Curve:** Average Precision = 0.225 (dev-test)
 
-![PR ROC test data](/images/gallery/PR ROC test.png)
-![PR ROC holdout data](/images/gallery/PR ROC final.png)
 ---
 
 ## 8. Key Takeaways
