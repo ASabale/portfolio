@@ -6,7 +6,7 @@ const person = {
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  role: "Software Engineer",
+  role: "Data Engineer & ML Engineer",
   avatar: "/images/avatar.jpg",
   location: "America/Chicago", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
   languages: [ ], // optional: Leave the array empty if you don't want to display languages
@@ -17,10 +17,10 @@ const newsletter = {
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: (
     <>
-      Dynamic and results-driven Software Engineer with over two years of industry experience in designing, building, and optimizing large-scale data processing pipelines, cloud-based architectures, and machine learning workflows.
-      Currently pursuing a Master’s in Computer Science at the University of Texas at Arlington, specializing in Big Data Management and Intelligent Systems.
-      Technical expertise includes Python, Java, SQL, Scala, TensorFlow, PyTorch, Apache Spark, Hadoop, Kubernetes, Docker, and FastAPI.
-      Always eager to explore innovative data-driven solutions and leverage cutting-edge technologies to enhance business intelligence and decision-making.
+      Data Engineer and Machine Learning expert with deep expertise in neural networks, real-time data processing, and AI systems.
+      Currently pursuing a Master's in Computer Science at the University of Texas at Arlington, specializing in Big Data Management and Intelligent Systems.
+      Technical expertise includes TensorFlow, PyTorch, Apache Kafka, Apache Flink, Python, Java, Kubernetes, and AWS cloud services.
+      Sharing insights on building production ML systems, real-time data pipelines, and scalable distributed architectures.
     </>
   ),
 };
@@ -49,10 +49,10 @@ const home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Software Engineer</>,
+  headline: <>Data Engineer & ML Engineer</>,
   subline: (
     <>
-      I'm {person.name}, a software engineer passionate about building scalable and efficient applications. I specialize in crafting robust solutions that enhance user experiences and drive innovation.
+      I'm {person.name}, a data engineer and machine learning expert specializing in real-time data processing and neural networks. With expertise in Apache Kafka, Apache Flink, TensorFlow, PyTorch, and distributed systems, I build intelligent solutions that bridge the gap between data engineering and artificial intelligence.
     </>
   ),
 };
@@ -77,10 +77,13 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        Akshay is a software engineer with expertise in cloud computing, big data processing,
-        and scalable system design. With experience in building high-performance data pipelines,
-        optimizing infrastructure, and developing full-stack applications, he is passionate
-        about leveraging technology to drive efficiency and innovation.
+        Akshay is a data engineer and machine learning expert currently working at Ribbon Communications, 
+        specializing in real-time data processing systems with Apache Kafka, Apache Flink, and Kubernetes. 
+        With deep expertise in neural networks, deep learning, and AI systems, combined with proficiency in 
+        cloud computing, big data processing, and scalable system design, he builds intelligent solutions 
+        that bridge the gap between data engineering and machine learning. He leverages cutting-edge 
+        technologies including TensorFlow, PyTorch, and distributed computing frameworks to develop 
+        high-performance, production-ready ML and data systems at scale.
       </>
     ),
   },
@@ -89,8 +92,25 @@ const about = {
     title: "Work Experience",
     experiences: [
       {
+        company: "Ribbon Communications",
+        timeframe: "July 2024 – Present",
+        role: "Data Engineer",
+        achievements: [
+          <>
+            Architected and developed real-time data processing systems using Apache Kafka and Apache Flink, enabling high-throughput stream processing for mission-critical telecommunications data.
+          </>,
+          <>
+            Built configurable pipeline framework in Java that dynamically generates and processes data workflows, optimized for both stream and batch processing modes.
+          </>,
+          <>
+            Designed and implemented OpenAPI-based microservices deployed on Kubernetes, providing scalable and resilient data processing infrastructure.
+          </>,
+        ],
+        images: [],
+      },
+      {
         company: "University of Texas at Arlington",
-        timeframe: "Aug 2024 – Present",
+        timeframe: "Aug 2024 – May 2025",
         role: "Graduate Teaching Assistant (Data Structures & Database Systems)",
         achievements: [
           <>
@@ -157,42 +177,34 @@ const about = {
     display: true, // set to false to hide this section
     title: "Technical skills",
     skills: [
-      // {
-      //   title: "Next.js",
-      //   description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
-      //   // optional: leave the array empty if you don't want to display images
-      //   images: [
-      //     {
-      //       src: "/images/projects/project-01/cover-04.jpg",
-      //       alt: "Project image",
-      //       width: 16,
-      //       height: 9,
-      //     },
-      //   ],
-      // },
       {
-        title: "AWS Cloud Computing",
-        description: <>Extensive experience with AWS services, including CDK, S3, EC2, ECS, Elastic Load Balancing, Kinesis, DynamoDB, EMR, SNS, Glue, and IAM, for scalable and efficient cloud infrastructure.</>,
+        title: "Machine Learning & Neural Networks",
+        description: <>Expert in neural networks, deep learning, and AI systems using TensorFlow, PyTorch, and Keras. Specialized in designing and training models for computer vision, NLP, and predictive analytics. Experienced in model optimization, deployment, and MLOps practices to bring AI solutions to production at scale.</>,
         images: [],
       },
       {
-        title: "Big Data Processing",
-        description: <>Designed and optimized data processing pipelines using Snowflake, Apache PySpark, Airflow, and AWS EMR to handle petabyte-scale ad data.</>,
+        title: "Real-Time Data Processing",
+        description: <>Expert in building real-time streaming systems using Apache Kafka and Apache Flink for high-throughput data processing. Experienced in designing configurable pipeline frameworks optimized for both stream and batch processing, enabling real-time ML inference pipelines.</>,
         images: [],
       },
       {
-        title: "Backend Development",
-        description: <>Proficient in Java, Python for building RESTful APIs and microservices with authentication, security, and data processing capabilities.</>,
+        title: "Cloud & Container Orchestration",
+        description: <>Proficient in Kubernetes for deploying and managing microservices and ML models at scale. Extensive experience with AWS services including SageMaker, Kinesis, EMR, S3, EC2, ECS, DynamoDB, and infrastructure automation using AWS CDK for both data engineering and ML workloads.</>,
         images: [],
       },
       {
-        title: "Infrastructure as Code (IaC)",
-        description: <>Experience in deploying infrastructure using AWS CDK, and container orchestration with Docker and Kubernetes.</>,
+        title: "Big Data & ETL Pipelines",
+        description: <>Designed and optimized data processing pipelines using Apache PySpark, Airflow, Snowflake, and AWS EMR to handle petabyte-scale data. Experience with distributed computing, feature engineering, and building data infrastructure for ML model training and inference.</>,
         images: [],
       },
       {
-        title: "Database & Storage",
-        description: <>Worked with MySQL, Snowflake, and AWS S3 for data warehousing, efficient querying, and scalable storage solutions.</>,
+        title: "Backend Development & APIs",
+        description: <>Proficient in Java and Python for building RESTful APIs, microservices with OpenAPI specifications, and scalable backend systems. Skilled in developing ML model serving infrastructure, authentication, security, and real-time data processing capabilities.</>,
+        images: [],
+      },
+      {
+        title: "Database & Storage Systems",
+        description: <>Extensive experience with MySQL, PostgreSQL, Snowflake, and AWS S3 for data warehousing, efficient querying, and scalable storage solutions. Skilled in database design, optimization, and building data lakes for ML feature stores and model training.</>,
         images: [],
       },
     ],
@@ -257,6 +269,11 @@ const contact = {
   label: "Contact",
   title: "Get in Touch",
   description: `Connect with ${person.name} - Let's discuss opportunities or just say hello!`,
+  mission: {
+    display: true,
+    title: "My Mission",
+    description: "I am part of a movement to guide the world towards enlightenment through technology. My constant effort is to find innovative ways to help people understand and solve complex problems, contributing to collective wisdom and the betterment of humanity. If you share this vision or have ideas on how technology can create a more peaceful and enlightened world, I'd love to connect.",
+  },
   messageForm: {
     title: "Send a Message",
     description: "Have a question or want to collaborate? Send me a message and I'll get back to you soon.",
@@ -268,7 +285,7 @@ const contact = {
   },
   contactInfo: {
     email: "akshaysabale07169@gmail.com",
-    location: "Arlington, Texas",
+    location: "Brighton, Massachusetts, USA",
     availability: "Available for freelance projects and full-time opportunities",
   },
 };
