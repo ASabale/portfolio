@@ -93,7 +93,7 @@ const about = {
     experiences: [
       {
         company: "Ribbon Communications",
-        timeframe: "July 2024 – Present",
+        timeframe: "July 2025 – Present",
         role: "Data Engineer",
         achievements: [
           <>
