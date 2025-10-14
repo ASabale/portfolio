@@ -74,42 +74,46 @@ export const ContactForm = () => {
           <Column flex={1}>
             <Input
               id="contact-name"
+              label="Name"
+              labelAsPlaceholder
               name="name"
               value={formData.name}
               onChange={handleInputChange}
               required
-              placeholder="Name"
             />
           </Column>
           <Column flex={1}>
             <Input
               id="contact-email"
+              label="Email"
+              labelAsPlaceholder
               name="email"
               type="email"
               value={formData.email}
               onChange={handleInputChange}
               required
-              placeholder="Email"
             />
           </Column>
         </Row>
 
         <Input
           id="contact-subject"
+          label="Subject"
+          labelAsPlaceholder
           name="subject"
           value={formData.subject}
           onChange={handleInputChange}
           required
-          placeholder="Subject"
         />
 
         <Textarea
           id="contact-message"
+          label="Message"
+          labelAsPlaceholder
           name="message"
           value={formData.message}
           onChange={handleInputChange}
           required
-          placeholder="Message"
           rows={6}
         />
 
