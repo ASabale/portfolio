@@ -1,4 +1,4 @@
-const baseURL = "demo.magic-portfolio.com";
+const baseURL = "akshaysabale.com"; // Update this to your actual domain
 
 const routes = {
   "/": true,

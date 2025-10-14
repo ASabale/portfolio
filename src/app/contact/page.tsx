@@ -42,6 +42,30 @@ export default function ContactPage() {
         </RevealFx>
       </Column>
 
+      {/* Mission Section */}
+      {contact.mission?.display && (
+        <RevealFx translateY="12" delay={0.3}>
+          <Card 
+            padding="l" 
+            background="brand-weak" 
+            border="brand-medium" 
+            radius="m-4" 
+            shadow="l"
+            fillWidth
+            maxWidth="m"
+          >
+            <Column gap="m" horizontal="center">
+              <Heading variant="heading-strong-l" align="center">
+                {contact.mission.title}
+              </Heading>
+              <Text variant="body-default-l" onBackground="neutral-medium" align="center">
+                {contact.mission.description}
+              </Text>
+            </Column>
+          </Card>
+        </RevealFx>
+      )}
+
       <Row gap="xl" mobileDirection="column" fillWidth>
         {/* Message Form */}
         <Column flex={1} gap="l">

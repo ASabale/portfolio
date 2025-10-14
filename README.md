@@ -1,89 +1,97 @@
-# **Build your portfolio with Once UI's Magic Portfolio**
+# Akshay Sabale - Portfolio Website
 
-View the [demo here](https://demo.magic-portfolio.com).
+A modern, responsive portfolio website showcasing my work as a Software Engineer.
 
-![Magic Portfolio](public/images/cover.png)
+## About
 
+This portfolio website features:
+- **Projects**: Showcase of my development work and technical projects
+- **Blog**: Technical articles and insights
+- **Gallery**: Photo collection and experiences
+- **Contact**: Get in touch via contact form or schedule a meeting
 
-# **Getting started**
+## Tech Stack
 
-Magic Portfolio was built with [Once UI](https://once-ui.com) for [Next.js](https://nextjs.org). It requires Node.js v18.17+.
+- **Framework**: Next.js 15.5.5
+- **React**: 19.0.0
+- **Styling**: SCSS Modules
+- **TypeScript**: 5.7.3
+- **Deployment**: Vercel
 
-**1. Clone the repository**
+## Getting Started
+
+### Prerequisites
+- Node.js v18.17 or higher
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone <your-repo-url>
+cd portfolio
 ```
-git clone https://github.com/once-ui-system/magic-portfolio.git
-```
 
-**2. Install dependencies**
-```
+2. Install dependencies
+```bash
 npm install
 ```
 
-**3. Run dev server**
-```
+3. Run the development server
+```bash
 npm run dev
 ```
 
-**4. Edit config**
-```
-src/app/resources/config
-```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-**5. Edit content**
-```
-src/app/resources/content
-```
+### Build for Production
 
-**6. Create blog posts / projects**
-```
-Add a new .mdx file to src/app/blog/posts or src/app/work/projects
+```bash
+npm run build
+npm start
 ```
 
-# **Features**
+## Configuration
 
-## **Once UI**
-- All tokens, components & features of [Once UI](https://once-ui.com)
+Edit the content in:
+- `src/app/resources/config.js` - Site configuration and styling
+- `src/app/resources/content.js` - Personal information and content
 
-## **SEO**
-- Automatic open-graph and X image generation with next/og
-- Automatic schema and metadata generation based on the content file
+## Project Structure
 
-## **Design**
-- Responsive layout optimized for all screen sizes
-- Timeless design without heavy animations and motion
-- Endless customization options through [data attributes](https://once-ui.com/docs/theming)
+```
+portfolio/
+├── src/
+│   ├── app/              # Next.js app directory
+│   │   ├── about/        # About page
+│   │   ├── blog/         # Blog posts
+│   │   ├── work/         # Projects
+│   │   ├── gallery/      # Photo gallery
+│   │   ├── contact/      # Contact page
+│   │   └── resources/    # Configuration files
+│   ├── components/       # React components
+│   └── once-ui/          # UI component library
+└── public/               # Static assets
+```
 
-## **Content**
-- Render sections conditionally based on the content file
-- Enable or disable pages for blog, work, gallery and about / CV
-- Generate and display social links automatically
-- Set up password protection for URLs
+## Features
 
-## **Localization**
-- A localized version of Magic Portfolio is available with the next-intl library
-- To use localization, switch to the 'i18n' branch
+- ✨ Modern, clean design
+- 📱 Fully responsive
+- 🌙 Dark/Light theme support
+- 📝 MDX-powered blog and projects
+- 📧 Contact form with email notifications
+- 📅 Calendly integration for meeting scheduling
+- 🖼️ Photo gallery with masonry layout
+- 🔒 Optional password protection for pages
+- 🚀 Optimized for performance
 
-# **Authors**
+## Contact
 
-Connect with us on Threads or LinkedIn.
+- Email: akshaysabale07169@gmail.com
+- Location: Brighton, Boston, Massachusetts
+- LinkedIn: [akshaysabale](https://www.linkedin.com/in/akshaysabale)
+- GitHub: [ASabale](https://github.com/ASabale)
 
-Lorant Toth: [Threads](https://www.threads.net/@lorant.one), [LinkedIn](https://www.linkedin.com/in/tothlorant/)  
-Zsofia Komaromi: [Threads](https://www.threads.net/@zsofia_kom), [LinkedIn](https://www.linkedin.com/in/zsofiakomaromi/)
+## License
 
-Localization added by [François Hernandez](https://github.com/francoishernandez)
-
-# **Get involved**
-
-- Join the [Design Engineers Club on Discord](https://discord.com/invite/5EyAQ4eNdS) and share your portfolio with us!
-- Report a [bug](https://github.com/once-ui-system/magic-portfolio/issues/new?labels=bug&template=bug_report.md).
-
-# **License**
-
-Distributed under the CC BY-NC 4.0 License.
-- Commercial usage is not allowed.
-- Attribution is required.
-
-See `LICENSE.txt` for more information.
-
-# **Deploy with Vercel**
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&project-name=portfolio&repository-name=portfolio&redirect-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&demo-title=Magic%20Portfolio&demo-description=Showcase%20your%20designers%20or%20developer%20portfolio&demo-url=https%3A%2F%2Fdemo.magic-portfolio.com&demo-image=%2F%2Fraw.githubusercontent.com%2Fonce-ui-system%2Fmagic-portfolio%2Fmain%2Fpublic%2Fimages%2Fcover.png)
+All rights reserved © 2025 Akshay Sabale
