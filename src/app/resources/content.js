@@ -253,4 +253,24 @@ const gallery = {
     ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+const contact = {
+  label: "Contact",
+  title: "Get in Touch",
+  description: `Connect with ${person.name} - Let's discuss opportunities or just say hello!`,
+  messageForm: {
+    title: "Send a Message",
+    description: "Have a question or want to collaborate? Send me a message and I'll get back to you soon.",
+  },
+  meetingScheduler: {
+    title: "Schedule a Meeting",
+    description: "Book a time to discuss projects, opportunities, or just have a chat.",
+    calendarLink: "https://calendly.com/akshaysabale07169",
+  },
+  contactInfo: {
+    email: "akshaysabale07169@gmail.com",
+    location: "Arlington, Texas",
+    availability: "Available for freelance projects and full-time opportunities",
+  },
+};
+
+export { person, social, newsletter, home, about, blog, work, gallery, contact };
