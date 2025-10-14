@@ -165,7 +165,7 @@ const about = {
     institutions: [
       {
         name: "University of Texas at Arlington",
-        description: <>Master's in Computer Science, specializing in Big Data Management and Intelligent Systems. Expected May 2025.</>,
+        description: <>Master's in Computer Science, specializing in Big Data Management and Intelligent Systems. graduated May 2025.</>,
       },
       {
         name: "Vishwakarma Institute of Technology, Pune",
